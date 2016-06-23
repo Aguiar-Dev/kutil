@@ -34,32 +34,42 @@ exports.log = (title, _arg, _arg1, _arg2) => {
 };
 
 exports.bump = (curver, label) => {
-  // sets each indivial character of the current version,
-  // number to a array of integers after splitting the string
-  let splitver = curver.split('.').map(Number);
-  // verifying the label param in either lowercase or uppercase :)
-  const lowlabel = label.toLowerCase();
+  // setup local variables for the scope of the function
+  const pattern = /^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/;
+  let newver;
 
-  if (lowlabel === 'major') {
-    // Increases the major tag on the current version number
-    splitver[0]++;
-    splitver[1] = 0;
-    splitver[2] = 0;
-  } else if (lowlabel === 'minor') {
-    // Increases the minor tag on the current version number
-    splitver[1]++;
-    splitver[2] = 0;
-  } else if (lowlabel === 'patch') {
-    // Increases the patch tag on the current version number
-    splitver[2]++;
+  // test to see whether the version string passed in is correct format
+  if (pattern.test(curver)) {
+    // sets each indivial character of the current version number
+    //  to a array of integers after splitting the string
+    const splitver = curver.split('.').map(Number);
+    // verifying the label param in either lowercase or uppercase :)
+    const lowlabel = label.toLowerCase();
+
+    if (lowlabel === 'major') {
+      // Increases the major tag on the current version number
+      splitver[0]++;
+      splitver[1] = 0;
+      splitver[2] = 0;
+    } else if (lowlabel === 'minor') {
+      // Increases the minor tag on the current version number
+      splitver[1]++;
+      splitver[2] = 0;
+    } else if (lowlabel === 'patch') {
+      // Increases the patch tag on the current version number
+      splitver[2]++;
+    } else {
+      // if label was something other than major.minor.patch it will return error string
+      newver = 'error';
+      console.log(newver);
+      return newver;
+    }
+    // joins the integer array into a string once again,
+    // this time as the new version number and returns the data
+    newver = splitver.join('.');
   } else {
-    // if label was something other than major.minor.patch it will return error string
-    splitver = 'error';
-    return splitver;
+    newver = 'error';
   }
-
-  // joins the integer array into a string once again,
-  // this time as the new version number and returns the data
-  splitver = splitver.join('.');
-  return splitver.toString();
+  console.log(newver);
+  return newver;
 };
