@@ -106,7 +106,7 @@ describe('Util Version Bump', () => {
   // Test for Error return after incorrect version string formatting is passed in
   it('| Should return error for incorrect VERSION STRING', (done) => {
     // run the util bump with the incorrect version string, expecting error response
-    newver = util.bump('1.2.4.5.6.7.8.9', 'Hello');
+    newver = util.bump('1.2.4.5.6.7.8.9', 'minor');
     expect(newver).to.be.equal('error');
     done();
   });
