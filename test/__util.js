@@ -59,3 +59,32 @@ describe('Util Debug Tool', () => {
     }
   });
 });
+
+describe('Util Version Bump', () => {
+  const version = '1.2.3';
+  let newver;
+
+  it('| Should bump the version number by MAJOR', (done) => {
+    newver = util.bump(version, 'major');
+    expect(newver).to.be.equal('2.0.0');
+    done();
+  });
+
+  it('| Should bump the version number by MINOR', (done) => {
+    newver = util.bump(version, 'MINOR');
+    expect(newver).to.be.equal('1.3.0');
+    done();
+  });
+
+  it('| Should bump the version number by PATCH', (done) => {
+    newver = util.bump(version, 'PaTcH');
+    expect(newver).to.be.equal('1.2.4');
+    done();
+  });
+
+  it('| Should return error for incorrect LABEL', (done) => {
+    newver = util.bump(version, 'Hello');
+    expect(newver).to.be.equal('error');
+    done();
+  });
+});
