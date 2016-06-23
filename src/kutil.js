@@ -37,6 +37,7 @@ exports.bump = (curver, label) => {
   // setup local variables for the scope of the function
   const pattern = /^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/;
   let newver;
+  let num;
 
   // test to see whether the version string passed in is correct format
   if (pattern.test(curver)) {
@@ -48,20 +49,28 @@ exports.bump = (curver, label) => {
 
     if (lowlabel === 'major') {
       // Increases the major tag on the current version number
-      splitver[0]++;
-      splitver[1] = 0;
-      splitver[2] = 0;
+      num = 0;
+      for (let curr = 0; curr < splitver.length; curr++) {
+        if (curr === num) splitver[curr] += 1;
+        else if (curr > num) splitver[curr] = 0;
+      }
     } else if (lowlabel === 'minor') {
       // Increases the minor tag on the current version number
-      splitver[1]++;
-      splitver[2] = 0;
+      num = 1;
+      for (let curr = 0; curr < splitver.length; curr++) {
+        if (curr === num) splitver[curr] += 1;
+        else if (curr > num) splitver[curr] = 0;
+      }
     } else if (lowlabel === 'patch') {
       // Increases the patch tag on the current version number
-      splitver[2]++;
+      num = 2;
+      for (let curr = 0; curr < splitver.length; curr++) {
+        if (curr === num) splitver[curr] += 1;
+        else if (curr > num) splitver[curr] = 0;
+      }
     } else {
       // if label was something other than major.minor.patch it will return error string
       newver = 'error';
-      console.log(newver);
       return newver;
     }
     // joins the integer array into a string once again,
@@ -70,6 +79,5 @@ exports.bump = (curver, label) => {
   } else {
     newver = 'error';
   }
-  console.log(newver);
   return newver;
 };
