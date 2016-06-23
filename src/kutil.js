@@ -61,7 +61,6 @@ exports.bump = (curver, label) => {
     } else {
       // if label was something other than major.minor.patch it will return error string
       newver = 'error';
-      console.log(newver);
       return newver;
     }
     // joins the integer array into a string once again,
@@ -70,6 +69,5 @@ exports.bump = (curver, label) => {
   } else {
     newver = 'error';
   }
-  console.log(newver);
   return newver;
 };
