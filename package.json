@@ -17,7 +17,6 @@
   "author": "Kevin Tucker",
   "license": "ISC",
   "devDependencies": {
-    "async": "^2.0.0-rc.6",
     "chai": "^3.5.0",
     "eslint": "^2.13.0",
     "eslint-config-airbnb": "^9.0.1",
