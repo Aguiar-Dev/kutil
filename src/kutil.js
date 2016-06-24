@@ -34,40 +34,36 @@ exports.log = (title, _arg, _arg1, _arg2) => {
 };
 
 exports.bump = (curver, label) => {
+  // verifying the label param in either lowercase or uppercase :)
+  const lowlabel = label.toLowerCase();
   // setup local variables for the scope of the function
   const pattern = /^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/;
   let newver;
-  let num;
+  let splitver;
+
+  // Functionality to increase the version string number
+  function bumper(idx) {
+    for (let curr = 0; curr < splitver.length; curr++) {
+      if (curr === idx) splitver[curr] += 1;
+      else if (curr > idx) splitver[curr] = 0;
+    }
+  }
 
   // test to see whether the version string passed in is correct format
   if (pattern.test(curver)) {
     // sets each indivial character of the current version number
     //  to a array of integers after splitting the string
-    const splitver = curver.split('.').map(Number);
-    // verifying the label param in either lowercase or uppercase :)
-    const lowlabel = label.toLowerCase();
+    splitver = curver.split('.').map(Number);
 
     if (lowlabel === 'major') {
       // Increases the major tag on the current version number
-      num = 0;
-      for (let curr = 0; curr < splitver.length; curr++) {
-        if (curr === num) splitver[curr] += 1;
-        else if (curr > num) splitver[curr] = 0;
-      }
+      bumper(0);
     } else if (lowlabel === 'minor') {
       // Increases the minor tag on the current version number
-      num = 1;
-      for (let curr = 0; curr < splitver.length; curr++) {
-        if (curr === num) splitver[curr] += 1;
-        else if (curr > num) splitver[curr] = 0;
-      }
+      bumper(1);
     } else if (lowlabel === 'patch') {
       // Increases the patch tag on the current version number
-      num = 2;
-      for (let curr = 0; curr < splitver.length; curr++) {
-        if (curr === num) splitver[curr] += 1;
-        else if (curr > num) splitver[curr] = 0;
-      }
+      bumper(2);
     } else {
       // if label was something other than major.minor.patch it will return error string
       newver = 'error';
