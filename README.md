@@ -32,8 +32,8 @@ In order to use the Version Bump feature simply follow this format `util.bump(ve
 
 ```
 Example Use:
-util.bump('1.2.3', 'Minor');
+util.bump('1.2.3', 'minor');
 
 Output:
-Version Tag: 1.3.0
+'1.3.0'
 ```
